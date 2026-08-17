@@ -1,0 +1,6 @@
+{
+  "name": "RH Tech - Servis Komputer & Rakit PC",
+  "description": "Single landing page modern, clean, dark-mode untuk usaha servis komputer, laptop, dan rakit PC 'RH Tech' dengan animasi smooth fade-in-up.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

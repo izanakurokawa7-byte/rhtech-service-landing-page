@@ -1,0 +1,846 @@
+export const STANDALONE_HTML_CODE = `<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RH Tech - Servis Komputer, Laptop & Rakit PC Profesional</title>
+  <meta name="description" content="Jasa servis komputer, laptop, MacBook, dan custom rakit PC profesional di RH Tech. Bergaransi, transparan, dan terpercaya." />
+  
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons via CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+            },
+            dark: {
+              base: '#060a12',
+              card: '#0c1322',
+              cardHover: '#111a30',
+              border: '#1e293b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #060a12;
+      color: #f1f5f9;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* Animation Classes for Intersection Observer */
+    .fade-in-element {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    .fade-in-element.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stagger Delays */
+    .delay-100 { transition-delay: 100ms; }
+    .delay-200 { transition-delay: 200ms; }
+    .delay-300 { transition-delay: 300ms; }
+    .delay-400 { transition-delay: 400ms; }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #060a12;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3b82f6;
+    }
+  </style>
+</head>
+<body class="bg-[#060a12] text-slate-100 antialiased selection:bg-blue-600 selection:text-white">
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-[#060a12]/85 backdrop-blur-md border-b border-slate-800/80 transition-all duration-300" id="navbar">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <!-- Logo -->
+      <a href="#hero" class="flex items-center gap-3 group">
+        <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center shadow-lg shadow-blue-500/20 border border-blue-400/30 group-hover:scale-105 transition-transform duration-300">
+          <i data-lucide="cpu" class="w-6 h-6 text-white"></i>
+        </div>
+        <div>
+          <span class="text-xl font-extrabold tracking-wider text-white">RH<span class="text-blue-500">TECH</span></span>
+          <span class="block text-[10px] tracking-widest text-slate-400 uppercase font-semibold">Service & PC Build</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="#hero" class="text-sm font-medium text-slate-300 hover:text-blue-400 transition-colors">Beranda</a>
+        <a href="#about" class="text-sm font-medium text-slate-300 hover:text-blue-400 transition-colors">Tentang</a>
+        <a href="#layanan" class="text-sm font-medium text-slate-300 hover:text-blue-400 transition-colors">Layanan</a>
+        <a href="#galeri" class="text-sm font-medium text-slate-300 hover:text-blue-400 transition-colors">Galeri</a>
+        <a href="#kontak" class="text-sm font-medium text-slate-300 hover:text-blue-400 transition-colors">Kontak</a>
+      </nav>
+
+      <!-- Desktop WA CTA Button -->
+      <div class="hidden md:flex items-center gap-3">
+        <a href="https://wa.me/6281234567890?text=Halo%20RH%20Tech,%20saya%20mau%20konsultasi%20servis%20komputer/laptop" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold shadow-lg shadow-emerald-600/25 transition-all duration-300 hover:-translate-y-0.5">
+          <i data-lucide="message-circle" class="w-4 h-4"></i>
+          <span>Konsultasi WA</span>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobileMenuBtn" aria-label="Toggle Navigation" class="md:hidden p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Nav Drawer -->
+    <div id="mobileMenu" class="hidden md:hidden bg-[#0a101f] border-b border-slate-800 px-6 py-6 space-y-4">
+      <a href="#hero" class="block text-slate-200 font-medium hover:text-blue-400 py-1 mobile-link">Beranda</a>
+      <a href="#about" class="block text-slate-200 font-medium hover:text-blue-400 py-1 mobile-link">Tentang</a>
+      <a href="#layanan" class="block text-slate-200 font-medium hover:text-blue-400 py-1 mobile-link">Layanan</a>
+      <a href="#galeri" class="block text-slate-200 font-medium hover:text-blue-400 py-1 mobile-link">Galeri</a>
+      <a href="#kontak" class="block text-slate-200 font-medium hover:text-blue-400 py-1 mobile-link">Kontak</a>
+      <div class="pt-2">
+        <a href="https://wa.me/6281234567890?text=Halo%20RH%20Tech,%20saya%20mau%20konsultasi%20servis%20komputer/laptop" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 w-full px-5 py-3 rounded-xl bg-emerald-600 text-white font-semibold shadow-md">
+          <i data-lucide="message-circle" class="w-5 h-5"></i>
+          <span>Konsultasi via WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= 1. HERO SECTION ================= -->
+  <section id="hero" class="relative pt-36 pb-20 md:pt-44 md:pb-32 overflow-hidden">
+    <!-- Subtle Background Lighting & Grid -->
+    <div class="absolute inset-0 -z-10 flex items-center justify-center">
+      <div class="w-[500px] h-[500px] bg-blue-600/15 blur-[120px] rounded-full pointer-events-none"></div>
+      <div class="w-[300px] h-[300px] bg-indigo-600/10 blur-[100px] rounded-full pointer-events-none translate-x-40 -translate-y-20"></div>
+    </div>
+    <div class="absolute inset-0 -z-10 opacity-20 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <!-- Badge -->
+      <div class="fade-in-element inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-slate-700/80 text-blue-400 text-xs sm:text-sm font-medium mb-6 shadow-sm">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+        <span class="w-2 h-2 rounded-full bg-emerald-500 -ml-3.5"></span>
+        <span>Workshop Buka Hari Ini • Pengecekan Awal Gratis</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="fade-in-element delay-100 text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-tight sm:leading-tight">
+        Spesialis Servis Komputer, Laptop & <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-cyan-400">Custom Rakit PC</span>
+      </h1>
+
+      <!-- Subheadline -->
+      <p class="fade-in-element delay-200 mt-6 text-base sm:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
+        Solusi cepat dan bergaransi untuk laptop mati total, overheat, lemot, hingga rakit PC gaming & workstation impian Anda dengan standar teknisi profesional.
+      </p>
+
+      <!-- CTA Buttons -->
+      <div class="fade-in-element delay-300 mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="https://wa.me/6281234567890?text=Halo%20RH%20Tech,%20saya%20mau%20konsultasi%20servis%20komputer/laptop" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-base shadow-xl shadow-emerald-600/30 transition-all duration-300 hover:scale-105 active:scale-95">
+          <i data-lucide="message-circle" class="w-5 h-5"></i>
+          <span>Konsultasi WhatsApp Sekarang</span>
+        </a>
+        <a href="#layanan" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold text-base transition-all duration-300 hover:border-slate-500">
+          <span>Lihat Layanan & Biaya</span>
+          <i data-lucide="arrow-down" class="w-4 h-4"></i>
+        </a>
+      </div>
+
+      <!-- Feature Pill List -->
+      <div class="fade-in-element delay-400 mt-14 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-left">
+        <div class="flex items-center gap-3 p-3.5 rounded-xl bg-[#0c1322]/80 border border-slate-800">
+          <div class="p-2 rounded-lg bg-blue-500/10 text-blue-400"><i data-lucide="shield-check" class="w-5 h-5"></i></div>
+          <div>
+            <div class="text-xs text-slate-400">Garansi Layanan</div>
+            <div class="text-sm font-bold text-slate-200">s/d 90 Hari</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 p-3.5 rounded-xl bg-[#0c1322]/80 border border-slate-800">
+          <div class="p-2 rounded-lg bg-emerald-500/10 text-emerald-400"><i data-lucide="badge-percent" class="w-5 h-5"></i></div>
+          <div>
+            <div class="text-xs text-slate-400">Pengecekan Awal</div>
+            <div class="text-sm font-bold text-slate-200">100% Gratis</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 p-3.5 rounded-xl bg-[#0c1322]/80 border border-slate-800">
+          <div class="p-2 rounded-lg bg-amber-500/10 text-amber-400"><i data-lucide="sparkles" class="w-5 h-5"></i></div>
+          <div>
+            <div class="text-xs text-slate-400">Transparansi</div>
+            <div class="text-sm font-bold text-slate-200">Video & Foto Bukti</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 p-3.5 rounded-xl bg-[#0c1322]/80 border border-slate-800">
+          <div class="p-2 rounded-lg bg-indigo-500/10 text-indigo-400"><i data-lucide="zap" class="w-5 h-5"></i></div>
+          <div>
+            <div class="text-xs text-slate-400">Pengerjaan Cepat</div>
+            <div class="text-sm font-bold text-slate-200">Bisa Ditunggu</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 2. ABOUT / BRANDING SECTION ================= -->
+  <section id="about" class="py-24 bg-[#080d18] border-y border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Column: Story & Highlights -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="fade-in-element inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-950/60 border border-blue-800/60 text-blue-400 text-xs font-semibold uppercase tracking-wider">
+            Tentang RH Tech
+          </div>
+          
+          <h2 class="fade-in-element delay-100 text-2xl sm:text-4xl font-extrabold text-white leading-tight">
+            Berpengalaman Lebih Dari 6 Tahun Menyelesaikan Berbagai Kerusakan Komputer
+          </h2>
+          
+          <p class="fade-in-element delay-200 text-slate-300 text-base leading-relaxed">
+            Berawal dari passion mendalam di bidang elektronika dan hardware komputer, <strong class="text-white">RH Tech</strong> didirikan untuk memberikan rasa aman kepada pemilik gadget yang seringkali cemas dengan biaya servis tak menentu atau kecurangan pergantian komponen.
+          </p>
+
+          <p class="fade-in-element delay-300 text-slate-400 text-sm leading-relaxed">
+            Setiap unit yang masuk ke workshop kami melalui standar diagnosa yang teliti. Kami selalu menyertakan video dokumentasi proses bongkar, penjelasan kerusakan sebelum pengerjaan, dan jaminan sparepart asli. Tidak ada tindakan sepihak tanpa persetujuan Anda terlebih dahulu.
+          </p>
+
+          <!-- Core Values Badges -->
+          <div class="fade-in-element delay-300 pt-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="p-4 rounded-xl bg-[#0c1322] border border-slate-800 flex items-start gap-3">
+              <i data-lucide="check-circle-2" class="w-5 h-5 text-blue-400 shrink-0 mt-0.5"></i>
+              <div>
+                <div class="text-sm font-semibold text-white">No Hidden Cost</div>
+                <div class="text-xs text-slate-400">Biaya disepakati di awal sebelum perbaikan dimulai.</div>
+              </div>
+            </div>
+            <div class="p-4 rounded-xl bg-[#0c1322] border border-slate-800 flex items-start gap-3">
+              <i data-lucide="shield" class="w-5 h-5 text-blue-400 shrink-0 mt-0.5"></i>
+              <div>
+                <div class="text-sm font-semibold text-white">Garansi Nota Resmi</div>
+                <div class="text-xs text-slate-400">Garansi nyata jika kendala yang sama terulang kembali.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Stats & Profile Card -->
+        <div class="lg:col-span-5 fade-in-element delay-200">
+          <div class="relative p-6 sm:p-8 rounded-2xl bg-[#0c1322] border border-slate-800 shadow-2xl space-y-6">
+            <!-- Glow Corner -->
+            <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+            <div class="flex items-center gap-4 pb-6 border-b border-slate-800">
+              <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center font-black text-xl text-white shadow-lg">
+                RH
+              </div>
+              <div>
+                <h3 class="text-lg font-bold text-white">Roy Hartanto</h3>
+                <p class="text-xs text-blue-400 font-medium">Lead Hardware Technician & PC Builder</p>
+                <p class="text-xs text-slate-400 mt-0.5">Certified Hardware & Circuit Specialist</p>
+              </div>
+            </div>
+
+            <!-- Numbers Grid -->
+            <div class="grid grid-cols-2 gap-4">
+              <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
+                <div class="text-2xl sm:text-3xl font-extrabold text-blue-400">2.400+</div>
+                <div class="text-xs text-slate-400 mt-1">Perangkat Tertangani</div>
+              </div>
+              <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
+                <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400">99.2%</div>
+                <div class="text-xs text-slate-400 mt-1">Tingkat Kepuasan</div>
+              </div>
+              <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
+                <div class="text-2xl sm:text-3xl font-extrabold text-indigo-400">6+ Thn</div>
+                <div class="text-xs text-slate-400 mt-1">Pengalaman Praktis</div>
+              </div>
+              <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
+                <div class="text-2xl sm:text-3xl font-extrabold text-amber-400">90 Hari</div>
+                <div class="text-xs text-slate-400 mt-1">Maksimal Garansi</div>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-blue-950/30 border border-blue-800/40 text-xs text-slate-300 flex items-center gap-3">
+              <i data-lucide="info" class="w-5 h-5 text-blue-400 shrink-0"></i>
+              <span>Kami melayani pengerjaan walk-in ke workshop maupun pengiriman via kurir instan (Gojek/Grab).</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 3. LAYANAN & RAKIT PC ================= -->
+  <section id="layanan" class="py-24 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="fade-in-element inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-950/60 border border-blue-800/60 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-3">
+          Layanan Kami
+        </div>
+        <h2 class="fade-in-element delay-100 text-3xl sm:text-4xl font-extrabold text-white">
+          Solusi Lengkap Servis & Perakitan Komputer
+        </h2>
+        <p class="fade-in-element delay-200 text-slate-400 mt-4 text-sm sm:text-base">
+          Mulai dari servis komponen mikroskopis hingga perakitan PC gaming high-end dengan manajemen kabel estetik.
+        </p>
+      </div>
+
+      <!-- Service Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Card 1: Servis Laptop -->
+        <div class="fade-in-element p-6 rounded-2xl bg-[#0c1322] border border-slate-800 hover:border-blue-500/50 hover:bg-[#10192e] transition-all duration-300 group flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+              <i data-lucide="laptop" class="w-6 h-6"></i>
+            </div>
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <h3 class="text-lg font-bold text-white">Servis Laptop & MacBook</h3>
+              <span class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-blue-900/60 text-blue-300 border border-blue-700/50">Populer</span>
+            </div>
+            <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+              Mati total, layar blank/retak, ganti baterai drop, keyboard macet, engsel bodi jebol, hingga perbaikan IC power.
+            </p>
+            <ul class="space-y-2 text-xs text-slate-300 border-t border-slate-800/80 pt-4 mb-4">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-blue-400"></i> Pengecekan IC Power & Jalur VCORE</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-blue-400"></i> Ganti LCD / OLED Original</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-blue-400"></i> Rekonstruksi Engsel Kuat & Rapi</li>
+            </ul>
+          </div>
+          <div class="pt-4 border-t border-slate-800 flex items-center justify-between">
+            <div>
+              <div class="text-[10px] text-slate-400">Estimasi Mulai</div>
+              <div class="text-sm font-bold text-emerald-400">Rp 75.000</div>
+            </div>
+            <a href="https://wa.me/6281234567890?text=Halo%20RH%20Tech,%20saya%20mau%20servis%20laptop" target="_blank" class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-blue-600 text-xs font-semibold text-white transition-colors">
+              Pesan Layanan
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 2: Custom Rakit PC -->
+        <div class="fade-in-element delay-100 p-6 rounded-2xl bg-[#0c1322] border border-blue-500/40 hover:border-blue-400 hover:bg-[#10192e] transition-all duration-300 group flex flex-col justify-between shadow-lg shadow-blue-900/10">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+              <i data-lucide="cpu" class="w-6 h-6"></i>
+            </div>
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <h3 class="text-lg font-bold text-white">Custom Rakit PC Gaming & Kerja</h3>
+              <span class="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-emerald-900/60 text-emerald-300 border border-emerald-700/50">Rekomendasi</span>
+            </div>
+            <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+              Konsultasi spek sesuai budget, pemilihan part anti bottleneck, cable management estetik, & stress test stabilitas.
+            </p>
+            <ul class="space-y-2 text-xs text-slate-300 border-t border-slate-800/80 pt-4 mb-4">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-indigo-400"></i> Cable Management Super Rapih</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-indigo-400"></i> Free Install Windows + Driver Lengkap</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-indigo-400"></i> Stress Test Benchmark & Suhu 24 Jam</li>
+            </ul>
+          </div>
+          <div class="pt-4 border-t border-slate-800 flex items-center justify-between">
+            <div>
+              <div class="text-[10px] text-slate-400">Jasa Rakit Mulai</div>
+              <div class="text-sm font-bold text-emerald-400">Rp 150.000</div>
+            </div>
+            <a href="https://wa.me/6281234567890?text=Halo%20RH%20Tech,%20saya%20mau%20konsultasi%20rakit%20PC" target="_blank" class="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-xs font-semibold text-white transition-colors">
+              Konsultasi Spek
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 3: Deep Clean & Repaste -->
+        <div class="fade-in-element delay-200 p-6 rounded-2xl bg-[#0c1322] border border-slate-800 hover:border-blue-500/50 hover:bg-[#10192e] transition-all duration-300 group flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+              <i data-lucide="fan" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Deep Cleaning & Repaste</h3>
+            <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+              Pembersihan debu kerak kipas dan penggantian pasta termal grade tinggi (Arctic MX-4 / Thermal Grizzly).
+            </p>
+            <ul class="space-y-2 text-xs text-slate-300 border-t border-slate-800/80 pt-4 mb-4">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-cyan-400"></i> Bersihkan Kipas & Sirip Heatsink</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-cyan-400"></i> Ganti Thermal Paste High-Performance</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-cyan-400"></i> Turunkan Suhu hingga 10-25°C</li>
+            </ul>
+          </div>
+          <div class="pt-4 border-t border-slate-800 flex items-center justify-between">
+            <div>
+              <div class="text-[10px] text-slate-400">Biaya Mulai</div>
+              <div class="text-sm font-bold text-emerald-400">Rp 100.000</div>
+            </div>
+            <a href="https://wa.me/6281234567890?text=Halo%20RH%20Tech,%20mau%20deep%20cleaning%20laptop/PC" target="_blank" class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-blue-600 text-xs font-semibold text-white transition-colors">
+              Pesan Layanan
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 4: Upgrade Hardware -->
+        <div class="fade-in-element p-6 rounded-2xl bg-[#0c1322] border border-slate-800 hover:border-blue-500/50 hover:bg-[#10192e] transition-all duration-300 group flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+              <i data-lucide="hard-drive" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Upgrade SSD & RAM</h3>
+            <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+              Bikin PC atau laptop lama kembali gesit dengan SSD NVMe ultra-speed & ekspansi kapasitas RAM dual-channel.
+            </p>
+            <ul class="space-y-2 text-xs text-slate-300 border-t border-slate-800/80 pt-4 mb-4">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-400"></i> Kloning Sistem Tanpa Kehilangan Data</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-400"></i> Pilihan SSD NVMe Gen 3/4 Original</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-amber-400"></i> Garansi Part Distributor Resmi</li>
+            </ul>
+          </div>
+          <div class="pt-4 border-t border-slate-800 flex items-center justify-between">
+            <div>
+              <div class="text-[10px] text-slate-400">Jasa Pasang Mulai</div>
+              <div class="text-sm font-bold text-emerald-400">Rp 50.000</div>
+            </div>
+            <a href="https://wa.me/6281234567890?text=Halo%20RH%20Tech,%20mau%20tanya%20upgrade%20SSD/RAM" target="_blank" class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-blue-600 text-xs font-semibold text-white transition-colors">
+              Pesan Layanan
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 5: Install Ulang & Software -->
+        <div class="fade-in-element delay-100 p-6 rounded-2xl bg-[#0c1322] border border-slate-800 hover:border-blue-500/50 hover:bg-[#10192e] transition-all duration-300 group flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+              <i data-lucide="app-window" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Install Ulang OS & Software</h3>
+            <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+              Install Windows 10/11, macOS, software produktivitas, driver resmi, dan pembersihan total dari virus/malware.
+            </p>
+            <ul class="space-y-2 text-xs text-slate-300 border-t border-slate-800/80 pt-4 mb-4">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-purple-400"></i> Clean OS Bebas Bloatware</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-purple-400"></i> Software Standar Siap Pakai</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-purple-400"></i> Backup Data Aman</li>
+            </ul>
+          </div>
+          <div class="pt-4 border-t border-slate-800 flex items-center justify-between">
+            <div>
+              <div class="text-[10px] text-slate-400">Biaya Mulai</div>
+              <div class="text-sm font-bold text-emerald-400">Rp 80.000</div>
+            </div>
+            <a href="https://wa.me/6281234567890?text=Halo%20RH%20Tech,%20mau%20install%20ulang%20OS" target="_blank" class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-blue-600 text-xs font-semibold text-white transition-colors">
+              Pesan Layanan
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 6: Troubleshoot Motherboard & PSU -->
+        <div class="fade-in-element delay-200 p-6 rounded-2xl bg-[#0c1322] border border-slate-800 hover:border-blue-500/50 hover:bg-[#10192e] transition-all duration-300 group flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-xl bg-rose-500/10 text-rose-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+              <i data-lucide="wrench" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Perbaikan Motherboard & PSU</h3>
+            <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+              Solusi untuk PC mati total akibat short circuit, kapasitor melembung, BIOS korup, hingga recovery jalur power.
+            </p>
+            <ul class="space-y-2 text-xs text-slate-300 border-t border-slate-800/80 pt-4 mb-4">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-rose-400"></i> Diagnosa Jalur Voltase Teliti</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-rose-400"></i> Solder & Penggantian Komponen SMD</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-3.5 h-3.5 text-rose-400"></i> Flash & Reset Chip BIOS</li>
+            </ul>
+          </div>
+          <div class="pt-4 border-t border-slate-800 flex items-center justify-between">
+            <div>
+              <div class="text-[10px] text-slate-400">Biaya Mulai</div>
+              <div class="text-sm font-bold text-emerald-400">Rp 120.000</div>
+            </div>
+            <a href="https://wa.me/6281234567890?text=Halo%20RH%20Tech,%20PC%20saya%20mati%20total%20mau%20cek%20motherboard" target="_blank" class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-blue-600 text-xs font-semibold text-white transition-colors">
+              Pesan Layanan
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= 4. GALERI BEFORE - AFTER ================= -->
+  <section id="galeri" class="py-24 bg-[#080d18] border-y border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="fade-in-element inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-950/60 border border-blue-800/60 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-3">
+          Galeri Hasil Pengerjaan
+        </div>
+        <h2 class="fade-in-element delay-100 text-3xl sm:text-4xl font-extrabold text-white">
+          Dokumentasi Sebelum & Sesudah (Before - After)
+        </h2>
+        <p class="fade-in-element delay-200 text-slate-400 mt-4 text-sm sm:text-base">
+          Bukti nyata ketelitian teknisi kami dalam membersihkan, memperbaiki, dan merakit perangkat pelanggan.
+        </p>
+      </div>
+
+      <!-- Gallery Grid with Before / After Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- Gallery Item 1 -->
+        <div class="fade-in-element p-6 rounded-2xl bg-[#0c1322] border border-slate-800 hover:border-slate-700 transition-all">
+          <div class="grid grid-cols-2 gap-3 mb-4 overflow-hidden rounded-xl">
+            <div class="relative group">
+              <img src="https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=600&q=80" alt="Sebelum Servis" class="w-full h-48 sm:h-56 object-cover rounded-lg border border-red-500/30" />
+              <span class="absolute bottom-2 left-2 px-2.5 py-1 rounded bg-red-950/90 border border-red-700/60 text-red-300 text-[10px] font-bold uppercase tracking-wider">
+                Before: Debu Tebal
+              </span>
+            </div>
+            <div class="relative group">
+              <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=600&q=80" alt="Sesudah Servis" class="w-full h-48 sm:h-56 object-cover rounded-lg border border-emerald-500/30" />
+              <span class="absolute bottom-2 left-2 px-2.5 py-1 rounded bg-emerald-950/90 border border-emerald-700/60 text-emerald-300 text-[10px] font-bold uppercase tracking-wider">
+                After: Bersih & Repaste
+              </span>
+            </div>
+          </div>
+          <h3 class="text-base font-bold text-white mb-1">Deep Clean & Repaste Laptop Gaming</h3>
+          <p class="text-xs text-blue-400 font-medium mb-2">Asus ROG Strix G15 • Core i7-10870H</p>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Pembersihan kerak debu tebal pada sirip pendingin dan pergantian pasta kering dengan Arctic MX-4. Suhu turun dari 95°C menjadi 68°C stabil saat gaming.
+          </p>
+        </div>
+
+        <!-- Gallery Item 2 -->
+        <div class="fade-in-element delay-100 p-6 rounded-2xl bg-[#0c1322] border border-slate-800 hover:border-slate-700 transition-all">
+          <div class="grid grid-cols-2 gap-3 mb-4 overflow-hidden rounded-xl">
+            <div class="relative group">
+              <img src="https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?auto=format&fit=crop&w=600&q=80" alt="Persiapan Part" class="w-full h-48 sm:h-56 object-cover rounded-lg border border-slate-700" />
+              <span class="absolute bottom-2 left-2 px-2.5 py-1 rounded bg-slate-900/90 border border-slate-700 text-slate-300 text-[10px] font-bold uppercase tracking-wider">
+                Part Unboxing
+              </span>
+            </div>
+            <div class="relative group">
+              <img src="https://images.unsplash.com/photo-1587202372634-32705e3bf49c?auto=format&fit=crop&w=600&q=80" alt="Hasil Rakit" class="w-full h-48 sm:h-56 object-cover rounded-lg border border-blue-500/40" />
+              <span class="absolute bottom-2 left-2 px-2.5 py-1 rounded bg-blue-950/90 border border-blue-700/60 text-blue-300 text-[10px] font-bold uppercase tracking-wider">
+                After: Rakit Selesai
+              </span>
+            </div>
+          </div>
+          <h3 class="text-base font-bold text-white mb-1">Custom PC Gaming White Aesthetic ARGB</h3>
+          <p class="text-xs text-blue-400 font-medium mb-2">Ryzen 7 7800X3D • RTX 4070 Ti Super • 32GB DDR5</p>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Perakitan presisi bertema serba putih dengan cable routing tersembunyi rapi, optimal airflow positif, dan pengujian suhu di bawah beban 100%.
+          </p>
+        </div>
+
+        <!-- Gallery Item 3 -->
+        <div class="fade-in-element p-6 rounded-2xl bg-[#0c1322] border border-slate-800 hover:border-slate-700 transition-all">
+          <div class="grid grid-cols-2 gap-3 mb-4 overflow-hidden rounded-xl">
+            <div class="relative group">
+              <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=600&q=80" alt="Engsel Patah" class="w-full h-48 sm:h-56 object-cover rounded-lg border border-red-500/30" />
+              <span class="absolute bottom-2 left-2 px-2.5 py-1 rounded bg-red-950/90 border border-red-700/60 text-red-300 text-[10px] font-bold uppercase tracking-wider">
+                Before: Casing Pecah
+              </span>
+            </div>
+            <div class="relative group">
+              <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80" alt="Engsel Rapi" class="w-full h-48 sm:h-56 object-cover rounded-lg border border-emerald-500/30" />
+              <span class="absolute bottom-2 left-2 px-2.5 py-1 rounded bg-emerald-950/90 border border-emerald-700/60 text-emerald-300 text-[10px] font-bold uppercase tracking-wider">
+                After: Rekonstruksi Rapi
+              </span>
+            </div>
+          </div>
+          <h3 class="text-base font-bold text-white mb-1">Restorasi Dudukan Engsel Laptop Jebol</h3>
+          <p class="text-xs text-blue-400 font-medium mb-2">Lenovo IdeaPad Series</p>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Rekonstruksi dudukan baut engsel menggunakan epoxy resin bertulang, setelan baut diatur kembali agar buka tutup layar empuk dan tahan lama.
+          </p>
+        </div>
+
+        <!-- Gallery Item 4 -->
+        <div class="fade-in-element delay-100 p-6 rounded-2xl bg-[#0c1322] border border-slate-800 hover:border-slate-700 transition-all">
+          <div class="grid grid-cols-2 gap-3 mb-4 overflow-hidden rounded-xl">
+            <div class="relative group">
+              <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=600&q=80" alt="Kabel Kusut" class="w-full h-48 sm:h-56 object-cover rounded-lg border border-slate-700" />
+              <span class="absolute bottom-2 left-2 px-2.5 py-1 rounded bg-slate-900/90 border border-slate-700 text-slate-300 text-[10px] font-bold uppercase tracking-wider">
+                Before: Kabel Kusut
+              </span>
+            </div>
+            <div class="relative group">
+              <img src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?auto=format&fit=crop&w=600&q=80" alt="Cable Management" class="w-full h-48 sm:h-56 object-cover rounded-lg border border-blue-500/40" />
+              <span class="absolute bottom-2 left-2 px-2.5 py-1 rounded bg-blue-950/90 border border-blue-700/60 text-blue-300 text-[10px] font-bold uppercase tracking-wider">
+                After: Cable Clean
+              </span>
+            </div>
+          </div>
+          <h3 class="text-base font-bold text-white mb-1">Rapi Kabel Management & Pasang Watercooler</h3>
+          <p class="text-xs text-blue-400 font-medium mb-2">Intel Core i5-13600KF • NZXT Case</p>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Penataan ulang jalur kabel power & SATA yang semrawut, pemasangan Liquid Cooler AIO 240mm untuk temperatur kerja yang lebih dingin & senyap.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= 5. TESTIMONIALS ================= -->
+  <section class="py-20 bg-[#060a12]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <h2 class="fade-in-element text-2xl sm:text-3xl font-extrabold text-white">Apa Kata Pelanggan Kami</h2>
+        <p class="fade-in-element delay-100 text-slate-400 mt-2 text-sm">Ulasan jujur dari customer yang telah mempercayakan perbaikan di RH Tech.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Review 1 -->
+        <div class="fade-in-element p-6 rounded-2xl bg-[#0c1322] border border-slate-800">
+          <div class="flex items-center gap-1 text-amber-400 mb-3">
+            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-300 italic mb-4 leading-relaxed">
+            "Laptop gaming saya awalnya overheat parah dan suka mati mendadak. Setelah dibersihkan dan diganti pasta Arctic di RH Tech, langsung adem dan lancar jaya! Ada video pengerjaannya juga via WA, transparan banget."
+          </p>
+          <div class="text-xs font-bold text-white">Dimas Prasetyo</div>
+          <div class="text-[11px] text-slate-400">Acer Predator Helios 300</div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="fade-in-element delay-100 p-6 rounded-2xl bg-[#0c1322] border border-slate-800">
+          <div class="flex items-center gap-1 text-amber-400 mb-3">
+            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-300 italic mb-4 leading-relaxed">
+            "Minta tolong dirakitin PC gaming budget 15 jutaan. Mas Roy ramah banget jelasin part mana yang efektif dan gak buang-buang duit. Kabel belakang ditata super rapi, dus komponen lengkap dikembaliin."
+          </p>
+          <div class="text-xs font-bold text-white">Aditya Nugroho</div>
+          <div class="text-[11px] text-slate-400">Custom Rakit PC Gaming</div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="fade-in-element delay-200 p-6 rounded-2xl bg-[#0c1322] border border-slate-800">
+          <div class="flex items-center gap-1 text-amber-400 mb-3">
+            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-amber-400"></i>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-300 italic mb-4 leading-relaxed">
+            "Layar MacBook kena benturan garis-garis. Tempat lain minta ganti assembly komplit mahal banget, di sini dikasih solusi ganti LCD panel aja dengan harga rasional & garansi resmi. Mantap rekomen!"
+          </p>
+          <div class="text-xs font-bold text-white">Siti Sarah</div>
+          <div class="text-[11px] text-slate-400">MacBook Air M1</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 6. FOOTER & KONTAK ================= -->
+  <footer id="kontak" class="pt-20 pb-12 bg-[#05080f] border-t border-slate-800 text-slate-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Top Grid: Info, Address, Quick Contact Form -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-slate-800">
+        
+        <!-- Left: Brand & Info -->
+        <div class="lg:col-span-5 space-y-5 fade-in-element">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center border border-blue-400/30">
+              <i data-lucide="cpu" class="w-5 h-5 text-white"></i>
+            </div>
+            <div>
+              <span class="text-xl font-extrabold text-white">RH<span class="text-blue-500">TECH</span></span>
+              <span class="block text-[9px] tracking-widest text-slate-400 uppercase font-semibold">Service & PC Build</span>
+            </div>
+          </div>
+          
+          <p class="text-sm text-slate-400 leading-relaxed max-w-sm">
+            Layanan perbaikan komputer, laptop, dan custom rakit PC dengan standar profesional, transparan, dan bergaransi resmi.
+          </p>
+
+          <div class="space-y-3 pt-2 text-xs">
+            <div class="flex items-start gap-3">
+              <i data-lucide="map-pin" class="w-4 h-4 text-blue-400 shrink-0 mt-0.5"></i>
+              <span class="text-slate-300">Jl. Pemuda No. 45, RT 03/RW 05, Rawamangun, Kec. Pulo Gadung, Jakarta Timur, DKI Jakarta 13220</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <i data-lucide="clock" class="w-4 h-4 text-emerald-400 shrink-0"></i>
+              <span class="text-slate-300">Senin - Minggu: 09.00 - 21.00 WIB</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <i data-lucide="phone" class="w-4 h-4 text-blue-400 shrink-0"></i>
+              <span class="text-slate-300">0812-3456-7890 (WhatsApp & Telp)</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <i data-lucide="instagram" class="w-4 h-4 text-pink-400 shrink-0"></i>
+              <span class="text-slate-300">@rhtech.service</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Fast WA Message Sender Box -->
+        <div class="lg:col-span-7 fade-in-element delay-100">
+          <div class="p-6 sm:p-8 rounded-2xl bg-[#0c1322] border border-slate-800 shadow-xl">
+            <h3 class="text-lg font-bold text-white mb-2">Pesan & Konsultasi Langsung via WhatsApp</h3>
+            <p class="text-xs text-slate-400 mb-6">Ketik keluhan atau rencana rakit PC Anda, sistem akan langsung mengarahkan Anda ke chat WhatsApp resmi kami.</p>
+
+            <form id="waConsultForm" class="space-y-4" onsubmit="handleWASubmit(event)">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-300 mb-1">Nama Anda</label>
+                  <input type="text" id="custName" required placeholder="Contoh: Budi Pratama" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs focus:outline-none focus:border-blue-500 transition-colors" />
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-slate-300 mb-1">Jenis Perangkat / Layanan</label>
+                  <select id="custDevice" class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs focus:outline-none focus:border-blue-500 transition-colors">
+                    <option value="Laptop Mati Total / No Display">Laptop Mati Total / Layar Blank</option>
+                    <option value="Servis Laptop Overheat & Repaste">Laptop Overheat / Ganti Pasta</option>
+                    <option value="Custom Rakit PC Gaming/Workstation">Rakit PC Baru (Gaming / Kerja)</option>
+                    <option value="Upgrade SSD & Tambah RAM">Upgrade SSD & Tambah RAM</option>
+                    <option value="Servis PC Desktop / Motherboard">Servis PC Desktop / Motherboard</option>
+                    <option value="Install Ulang OS & Driver">Install Ulang Windows / MacOS</option>
+                    <option value="Lainnya">Keluhan Lainnya</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold text-slate-300 mb-1">Detail Kerusakan / Kebutuhan</label>
+                <textarea id="custDesc" rows="3" required placeholder="Ceritakan gejala kerusakan atau budget rakit PC Anda..." class="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs focus:outline-none focus:border-blue-500 transition-colors resize-none"></textarea>
+              </div>
+
+              <button type="submit" class="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-2 transition-all">
+                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                <span>Kirim Pesan ke WhatsApp RH Tech</span>
+              </button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Copyright -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+        <div>
+          &copy; <span id="currentYear"></span> RH Tech. All rights reserved. Servis Komputer & Rakit PC Terpercaya.
+        </div>
+        <div class="flex items-center gap-6">
+          <a href="#hero" class="hover:text-blue-400 transition-colors">Kembali ke Atas ↑</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ================= FLOATING WHATSAPP BUTTON ================= -->
+  <a href="https://wa.me/6281234567890?text=Halo%20RH%20Tech,%20saya%20mau%20konsultasi%20servis%20komputer" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-40 p-4 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white shadow-2xl shadow-emerald-600/40 hover:scale-110 active:scale-95 transition-all duration-300 flex items-center justify-center group" aria-label="Chat WhatsApp">
+    <i data-lucide="message-circle" class="w-7 h-7"></i>
+    <span class="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs transition-all duration-300 ease-in-out px-0 group-hover:px-2 text-xs font-bold">
+      Chat WhatsApp
+    </span>
+  </a>
+
+  <!-- ================= VANILLA JAVASCRIPT ================= -->
+  <script>
+    // 1. Initialize Lucide Icons
+    lucide.createIcons();
+
+    // 2. Auto Set Current Year in Footer
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // 3. Mobile Navigation Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+        });
+      });
+    }
+
+    // 4. Pure Vanilla JS Intersection Observer for smooth 'fade-in-up' animation
+    document.addEventListener('DOMContentLoaded', () => {
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px 0px -50px 0px',
+        threshold: 0.12
+      };
+
+      const fadeObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target); // Unobserve once animated for performance
+          }
+        });
+      }, observerOptions);
+
+      const fadeElements = document.querySelectorAll('.fade-in-element');
+      fadeElements.forEach(el => fadeObserver.observe(el));
+    });
+
+    // 5. WhatsApp Form Generator
+    function handleWASubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('custName').value.trim();
+      const device = document.getElementById('custDevice').value;
+      const desc = document.getElementById('custDesc').value.trim();
+
+      const phone = '6281234567890';
+      const text = \`Halo RH Tech, saya *\${name}* ingin konsultasi:\\n\\n*Layanan:* \${device}\\n*Detail Kerusakan/Kebutuhan:* \${desc}\\n\\nMohon info estimasi biaya dan waktu pengerjaannya. Terima kasih!\`;
+      
+      const waUrl = \`https://wa.me/\${phone}?text=\${encodeURIComponent(text)}\`;
+      window.open(waUrl, '_blank');
+    }
+  </script>
+</body>
+</html>
+`;

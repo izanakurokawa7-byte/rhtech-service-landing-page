@@ -112,14 +112,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCodeModal }) => {
 
           {/* Mobile Menu Toggle */}
           <div className="flex items-center gap-2 sm:hidden">
-            <button
-              id="btn-mobile-code"
-              onClick={onOpenCodeModal}
-              className="p-2 rounded-lg bg-slate-900 border border-slate-800 text-cyan-400"
-              aria-label="Lihat Kode"
-            >
-              <Code className="w-5 h-5" />
-            </button>
 
             <button
               id="btn-mobile-menu-toggle"

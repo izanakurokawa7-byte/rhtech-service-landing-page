@@ -63,7 +63,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCodeModal }) => {
             id="nav-logo-link"
             className="flex items-center gap-3 group focus:outline-none"
           >
-            <img src="/foto-rh.png" alt="Logo RH Tech" className="h-10 w-auto object-contain rounded-xl shadow-[0_0_15px_rgba(6,182,212,0.4)] border border-cyan-500/20" />
+            <img src="/foto-rh.png" alt="Logo RH Tech" className="h-10 w-auto" />
             <div>
               <div className="flex items-center gap-1.5">
                 <span className="text-xl font-extrabold tracking-tight text-white">RH <span className="text-cyan-400">TECH</span></span>
